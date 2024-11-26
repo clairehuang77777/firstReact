@@ -1,6 +1,10 @@
 @use './base.scss';
 @use './form.scss';
 
+#root {
+  padding: 10px 10px;
+}
+
 %done-phase {
   .icon {
     display: inline-block;
@@ -101,11 +105,27 @@ section.progress-container {
         color: inherit;
       }
 
-      .icon {
-        width: inherit;
-        height: inherit;
+      .checkmark {
+        display: none; // 預設隱藏
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 27px;
+        color: var(--progress-done-color);
+        }
+
+      &.done {
+        background-color: var(--progress-done-bg);
+        border-color: var(--progress-done-border);
+      
+        .text {
+        display: none; // 隱藏數字
+        }
+      
+        .checkmark {
+        display: block; // 顯示打勾
+        }
       }
-    }
 
     .progress-label {
       font-weight: 400;
@@ -114,6 +134,8 @@ section.progress-container {
     }
   }
 }
+}
+
 
 $phase-map: (
   1: 'address',

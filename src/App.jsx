@@ -2,39 +2,54 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.scss'
-import './form.scss'
 import './base.scss'
+import './form.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export function StepProgress(){
+export function StepProgress({ currentStep }) {
+  const steps = [
+    { phase: 'address', label: '寄送地址' },
+    { phase: 'shipping', label: '運送方式' },
+    { phase: 'credit-card', label: '付款資訊' },
+  ];
+
   return (
-  <>
-    <h2 className="register-title col col-6">結帳</h2>
+    <>
+      <h2 className="register-title col col-6">結帳</h2>
       <section className="progress-container">
-            <span className="progress-group" data-phase="address">
-              <span className="progress-icon">
-                <span className="text">1</span>
-              </span>
-              <span className="progress-label">寄送地址</span>
-              </span>
-              <span className="progress-bar" data-order="1"></span>
-            <span className="progress-group col col-2" data-phase="shipping">
-              <span className="progress-icon">
-                <span className="text">2</span>
-              </span>
-              <span className="progress-label">運送方式</span>
-              </span>
-              <span className="progress-bar" data-order="2"></span>
-              <span className="progress-group col col-2" data-phase="credit-card">
-                <span className="progress-icon">
-                  <span className="text">3</span>
-                </span>
-                <span className="progress-label">付款資訊</span>
-              </span>
+        {steps.map((step, index) => (
+          <div key={step.phase}> 
+          <div className='progress-wrapper'>
+          <span
+            className={`progress-group ${
+              index + 1 < currentStep
+                ? 'done'
+                : index + 1 === currentStep
+                ? 'current'
+                : 'undone'
+            }`}
+            data-phase={step.phase}
+          >
+            <span className={`progress-icon ${index + 1 < currentStep ? 'done' : ''}`}>
+              {index + 1 < currentStep ? (
+                <span className="checkmark">✔</span> // 已完成顯示打勾
+              ) : (
+                <span className="text">{index + 1}</span> // 未完成或當前步驟顯示數字
+              )}
+            </span>
+            <span className="progress-label">{step.label}</span>
+          </span>
+          </div>
+          {index < steps.length -1 &&(<span className="progress-bar" data-order="1"></span>)}
+      </div>
+    ))}
+    
+
       </section>
     </>
-  )
+  );
 }
+
 
 export function StepOne(){
   return (
@@ -189,13 +204,13 @@ export function StepThree(){
   )
 }
 
-export function ProgressControlAddress({setPage}){
+export function ProgressControlAddress({nextStep}){
 
   return (
     <>
         <section className="progress-control-container col col-lg-6 col-sm-12">
           <section className="button-group col col-12" data-phase="address">
-            <button className="next" onClick={()=>setPage(2)}>
+            <button className="next" onClick={nextStep}>
               下一步
               <object data="./public/icons/right-arrow.svg" className="cursor-point">
               </object>
@@ -206,16 +221,16 @@ export function ProgressControlAddress({setPage}){
   )
 }
 
-export function ProgressControlShipping({setPage}){
+export function ProgressControlShipping({nextStep, prevStep}){
   return (
     <>
           <section className="button-group col col-12" data-phase="shipping">
-            <button className="prev" onClick={()=>setPage(1)}>
+            <button className="prev" onClick={prevStep}>
               <object data="./public/icons/left-arrow.svg" className="cursor-point">
               </object>
               上一步
             </button>
-            <button className="next" onClick={()=>setPage(3)}>
+            <button className="next" onClick={nextStep}>
               下一步
               <object data="./public/icons/right-arrow.svg" className="cursor-point">
               </object>
@@ -225,11 +240,11 @@ export function ProgressControlShipping({setPage}){
   )
 }
 
-export function ProgressControlCreditCard({setPage}){
+export function ProgressControlCreditCard({prevStep}){
   return(
     <>
      <section class="button-group col col-12" data-phase="credit-card">
-        <button class="prev" onClick={()=>setPage(2)}>
+        <button class="prev" onClick={prevStep}>
         <object data="./public/icons/left-arrow.svg" class="cursor-point">
         </object>
           上一步
@@ -241,3 +256,4 @@ export function ProgressControlCreditCard({setPage}){
     </>
   )
 }
+

@@ -3,34 +3,51 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.scss'
 import { StepProgress, StepOne, StepTwo, StepThree, ProgressControlAddress, ProgressControlCreditCard, ProgressControlShipping } from './App.jsx'
+import { Cart } from './Cart.jsx'
+import './cart.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App(){
-  const [page, setPage] = useState(1)
+  const [currentStep, setCurrentStep] = useState(1) //追蹤目前步驟
+
+  const nextStep = () => {
+    if (currentStep < 3 ){
+      setCurrentStep (currentStep + 1)
+    }
+  }
+
+  const prevStep =() => {
+    if (currentStep > 1 ) {
+      setCurrentStep(currentStep - 1)
+    }
+  }
 
   return(
 <>
-  {(page === 1) &&(
+  {(currentStep === 1) &&(
     <>
-      <StepProgress />
+      <StepProgress currentStep={currentStep}/>
       <StepOne />
-      <ProgressControlAddress setPage={setPage} />
+      <Cart />
+      <ProgressControlAddress nextStep={nextStep} />
     </>
     )}
 
-  {(page === 2) && (
+  {(currentStep === 2) && (
     <>
-      <StepProgress />
+      <StepProgress currentStep={currentStep}/>
       <StepTwo />
-      <ProgressControlShipping setPage={setPage}/>
+      <Cart />
+      <ProgressControlShipping nextStep={nextStep} prevStep={prevStep}/>
     </>
   )}
   
-  {(page === 3) && (
+  {(currentStep === 3) && (
     <>
-      <StepProgress />
+      <StepProgress currentStep={currentStep}/>
       <StepThree />
-      <ProgressControlCreditCard setPage={setPage}/>
+      <Cart />
+      <ProgressControlCreditCard prevStep={prevStep}/>
     </>
   )}
 </>

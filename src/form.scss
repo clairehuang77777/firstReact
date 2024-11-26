@@ -32,21 +32,22 @@ main.site-main {
 
 @media screen and (max-width: 768px) {
   $mobile-form-full-width: 346;
+  $input-sm-width: math.div(100% * 158, $mobile-form-full-width);
 
-  .input-w-sm-s1 {
-    width: math.div(100% * 158, $mobile-form-full-width);
-  }
-
-  .input-w-sm-s2 {
-    width: math.div(100% * 158, $mobile-form-full-width);
-  }
-
+  .input-w-sm-s1,
+  .input-w-sm-s2,
   .input-w-sm-s3 {
-    width: math.div(100% * 158, $mobile-form-full-width);
-  }
+    width: $input-sm-width;
+    max-width: 158px;
+    /* 限制最大寬度 */
+    min-width: 100px;
+    /* 避免過窄 */
+    flex-direction: column;
+    }
 
   .input-w-sm-full {
     width: 100%;
+    flex-direction: column;
   }
 
   main.site-main {
