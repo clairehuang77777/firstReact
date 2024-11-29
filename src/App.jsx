@@ -4,7 +4,52 @@ import viteLogo from '/vite.svg'
 import './App.scss'
 import './base.scss'
 import './form.scss'
+import './header.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+export function Headers(){
+  return (
+    <>
+    <header className="site-header">
+      <div className="header-container mx-auto">
+        <input id="navbar-toggle" className="navbar-toggle" type="checkbox" />
+        <label for="navbar-toggle" className="burger-container">
+          <img src="/icons/toggle.svg" alt="Toggle icon" className="toggleIcon" />
+        </label>
+        <NavbarMenu />
+        <a class="header-logo-container" href="#">
+          <img src="/icons/logo.svg" alt="logo icon" className="logoIcon" />
+        </a>
+      </div>
+    </header>
+    </>
+)}
+
+export function NavbarMenu(){
+  return(
+    <>
+    <nav className="navbar-menu">
+          <ul className="nav-list site-menu-list mr-auto">
+            <li className="nav-item">
+              <a className="nav-link" href="#">男款</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">女款</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">最新消息</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">客製商品</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">聯絡我們</a>
+            </li>
+          </ul>
+      </nav>
+    </>
+  )
+}
 
 export function StepProgress({ currentStep }) {
   const steps = [
