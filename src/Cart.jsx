@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { CartContext } from './CartContext.js'
 
 
 
 export function Item({cart, onPriceChange}){
-const [count, SetCount] = useState(1)
+const [count, SetCount] = useState(cart.quantity)
 
 function handleCountChange(newCount){
   SetCount(newCount)
@@ -30,7 +31,15 @@ return(
     )
 }
 
-export function Cart({carts}){
+export function Cart(){
+  const { carts, setCarts } = useContext(CartContext)
+
+    // 防禦性檢查
+  if (!Array.isArray(carts)) {
+    console.error("carts is not an array:", carts);
+    return null; // 或顯示錯誤訊息的 UI
+  }
+
   const [itemPrice, SetItemPrice] = useState(
     carts.map(cart=> ({id: cart.id, totalPrice: cart.price * cart.quantity }))
   )
@@ -50,8 +59,10 @@ export function Cart({carts}){
 
         <section className="product-list col col-12" data-total-price="0">
         {carts.map((cart)=>
-          (<Item key={cart.id} cart={cart} onPriceChange={handlePriceChange}></Item>
-          ))} 
+          (<Item key={cart.id} 
+                cart={cart} 
+                onPriceChange={handlePriceChange}></Item>
+          ))}
         </section>
           <section className="cart-info shipping col col-12">
             <div className="text">運費</div>

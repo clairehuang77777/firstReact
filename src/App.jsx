@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.scss'
@@ -6,6 +6,11 @@ import './base.scss'
 import './form.scss'
 import './header.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { createContext } from 'react'
+import { Cart } from './Cart'
+import { useNavigate } from "react-router-dom";
+
+
 
 export function Headers(){
   return (
@@ -13,11 +18,11 @@ export function Headers(){
     <header className="site-header">
       <div className="header-container mx-auto">
         <input id="navbar-toggle" className="navbar-toggle" type="checkbox" />
-        <label for="navbar-toggle" className="burger-container">
+        <label htmlfor="navbar-toggle" className="burger-container">
           <img src="/icons/toggle.svg" alt="Toggle icon" className="toggleIcon" />
         </label>
         <NavbarMenu />
-        <a class="header-logo-container" href="#">
+        <a className="header-logo-container" href="#">
           <img src="/icons/logo.svg" alt="logo icon" className="logoIcon" />
         </a>
       </div>
@@ -183,11 +188,15 @@ export function StepOne(){
 export function StepTwo(){
   return (
     <>
-    <form class="col col-12" data-phase="shipping">
+    <form className="col col-12" data-phase="shipping">
               <h3 className="form-title">運送方式</h3>
               <section className="form-body col col-12">
                 <label className="radio-group col col-12" data-price="0">
-                  <input id="shipping-standard" type="radio" name="shipping"  checked/>
+                  <input 
+                    id="shipping-standard" 
+                    type="radio" 
+                    name="shipping"  
+                      />
                   <div className="radio-info">
                     <div className="col col-12">
                       <div className="text">標準運送</div>
@@ -216,31 +225,67 @@ export function StepTwo(){
 }
 
 export function StepThree(){
+  const context = useContext(formDataContext)
+  console.log(context)
+  const {formData, setFormData} = context
+
+  function handleChange(e){
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name] : e.target.value,
+      })
+    )
+  }
+
   return (
     <>
-    <form className="col col-12" data-phase="credit-card">
+    <form className="col col-12" data-phase="credit-card" action="/form_data_page">
               <h3 className="form-title">付款資訊</h3>
               <section className="form-body col col-12">
                 <div className="col col-12">
                   <div className="input-group input-w-lg-4 input-w-sm-full">
-                    <div className="input-label">持卡人姓名</div>
-                    <input type="text" placeholder="John Doe" />
+                    <label className="input-label" htmlFor="cardHolderName">持卡人姓名</label>
+                    <input 
+                      id="cardHolderName"
+                      type="text" 
+                      placeholder="John Doe" 
+                      name="cardHolderName"
+                      onChange={handleChange}
+                      />
                   </div>
                 </div>
                 <div className="col col-12">
                   <div className="input-group input-w-lg-4 input-w-sm-full">
-                    <div className="input-label">卡號</div>
-                    <input type="text" placeholder="1111 2222 3333 4444" />
+                    <label className="input-label" htmlFor="cardNumber">卡號</label>
+                    <input 
+                      id="cardNumber"
+                      type="text" 
+                      placeholder="1111 2222 3333 4444" 
+                      name="cardNumber"
+                      onChange={handleChange}
+                      />
                   </div>
                 </div>
                 <div className="col col-12">
                   <div className="input-group input-w-lg-3 input-w-sm-s3">
-                    <div className="input-label">有效期限</div>
-                    <input type="text" placeholder="MM/YY" />
+                    <label className="input-label" htmlFor="expiredDate">有效期限</label>
+                    <input 
+                      id="expiredDate"
+                      type="text" 
+                      placeholder="MM/YY" 
+                      name="expiredDate" 
+                      onChange={handleChange}
+                      />
                   </div>
                   <div className="input-group input-w-lg-3 input-w-sm-s3">
-                    <div className="input-label">CVC / CCV</div>
-                    <input type="text" placeholder="123" />
+                    <label className="input-label" htmlFor="CVC">CVC / CCV</label>
+                    <input 
+                      id="CVC"
+                      type="text" 
+                      placeholder="123" 
+                      name="CVC"
+                      onChange={handleChange}
+                      />
                   </div>
                 </div>
               </section>
@@ -285,20 +330,68 @@ export function ProgressControlShipping({nextStep, prevStep}){
   )
 }
 
-export function ProgressControlCreditCard({prevStep}){
+export function ProgressControlCreditCard({prevStep, handleSubmit}){
   return(
     <>
-     <section class="button-group col col-12" data-phase="credit-card">
-        <button class="prev" onClick={prevStep}>
-        <object data="./public/icons/left-arrow.svg" class="cursor-point">
+     <section className="button-group col col-12" data-phase="credit-card">
+        <button className="prev" onClick={prevStep}>
+        <object data="./public/icons/left-arrow.svg" className="cursor-point">
         </object>
           上一步
         </button>
-        <button class="next">
+        <button className="next" type="button" onClick={handleSubmit}>
           確認下單
         </button>
       </section>
     </>
   )
 }
+//變成全局變數，這樣各個function才能拿到值
+const formDataContext = createContext({
+  formData:'',
+  setFormData:()=>{}
+})
 
+export function SectionPayment(){
+  const [formData, setFormData] = useState({})
+  const navigate = useNavigate()
+
+  function handleSubmit(e){
+    if (e) e.preventDefault();
+    console.log("handleSubmit triggered!")
+    const form = document.createElement("form");
+    navigate("/form_data_page")
+    ;
+
+    
+    Object.entries(formData).forEach(([key, value])=>{
+      const input = document.createElement("input");
+      input.type="hidden";
+      input.name=key;
+      input.value=value;
+      form.appendChild(input)
+    })
+
+    document.body.appendChild(form)
+    form.submit()
+    document.body.removeChild(form)
+
+  }
+
+  //建立一個暫時的表單讓瀏覽器可以提交,並在提交後刪除
+  return(
+    <formDataContext.Provider value={{formData, setFormData}}>
+      <StepThree />
+      <Cart/>
+      <ProgressControlCreditCard handleSubmit={handleSubmit}/>
+    </formDataContext.Provider>
+  )
+}
+
+export function Thankyoupage(){
+  return(
+    <h1>
+      Thank you for your orders!
+    </h1>
+  )
+}
