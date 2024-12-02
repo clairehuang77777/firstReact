@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { createContext } from 'react'
 import { Cart } from './Cart'
 import { useNavigate } from "react-router-dom";
-
+import React from 'react'
 
 
 export function Headers(){
@@ -68,9 +68,9 @@ export function StepProgress({ currentStep }) {
       <h2 className="register-title col col-6">結帳</h2>
       <section className="progress-container">
         {steps.map((step, index) => (
-          <div key={step.phase}> 
+          <React.Fragment key={step.phase}> 
           <div className='progress-wrapper'>
-          <span
+          <div
             className={`progress-group ${
               index + 1 < currentStep
                 ? 'done'
@@ -80,21 +80,19 @@ export function StepProgress({ currentStep }) {
             }`}
             data-phase={step.phase}
           >
-            <span className={`progress-icon ${index + 1 < currentStep ? 'done' : ''}`}>
+            <div className={`progress-icon ${index + 1 < currentStep ? 'done' : ''}`}>
               {index + 1 < currentStep ? (
-                <span className="checkmark">✔</span> // 已完成顯示打勾
+                <span className="checkmark">&#10003;</span> // 已完成顯示打勾
               ) : (
                 <span className="text">{index + 1}</span> // 未完成或當前步驟顯示數字
               )}
-            </span>
+            </div>
             <span className="progress-label">{step.label}</span>
-          </span>
+          </div>
           </div>
           {index < steps.length -1 &&(<span className="progress-bar" data-order="1"></span>)}
-      </div>
+      </React.Fragment>
     ))}
-    
-
       </section>
     </>
   );
@@ -352,7 +350,7 @@ const formDataContext = createContext({
   setFormData:()=>{}
 })
 
-export function SectionPayment(){
+export function SectionPayment({prevStep}){
   const [formData, setFormData] = useState({})
   const navigate = useNavigate()
 
@@ -383,7 +381,7 @@ export function SectionPayment(){
     <formDataContext.Provider value={{formData, setFormData}}>
       <StepThree />
       <Cart/>
-      <ProgressControlCreditCard handleSubmit={handleSubmit}/>
+      <ProgressControlCreditCard prevStep={prevStep} handleSubmit={handleSubmit}/>
     </formDataContext.Provider>
   )
 }

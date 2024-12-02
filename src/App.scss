@@ -82,60 +82,8 @@ section.progress-container {
     border-style: solid;
   }
 
-  .progress-group {
-    display: flex;
-
-    .progress-icon {
-      display: inline-block;
-      position: relative;
-      width: 27px;
-      height: 27px;
-      margin-right: 8px;
-      border-radius: 50%;
-
-      .text {
-        width: inherit;
-        height: inherit;
-        position: absolute;
-        top: 0px;
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 24px;
-        text-align: center;
-        color: inherit;
-      }
-
-      .checkmark {
-        display: none; // 預設隱藏
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 27px;
-        color: var(--progress-done-color);
-        }
-
-      &.done {
-        background-color: var(--progress-done-bg);
-        border-color: var(--progress-done-border);
-      
-        .text {
-        display: none; // 隱藏數字
-        }
-      
-        .checkmark {
-        display: block; // 顯示打勾
-        }
-      }
-
-    .progress-label {
-      font-weight: 400;
-      line-height: 24px;
-      color: var(--main-text);
-    }
-  }
+  
 }
-}
-
 
 $phase-map: (
   1: 'address',
@@ -458,13 +406,42 @@ section.button-group {
     margin-top: 24px;
 
     .progress-group {
-      .progress-icon {
+      .progress-icon.done {
         width: 32px;
         height: 32px;
         margin-right: 0px;
+        background-color: #000000;
+        color: white;
+        border-radius: 50%;
 
+        .checkmark {
+          font-family: Arial, sans-serif;
+          color: white !important;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        
         .text {
           line-height: 32px;
+        }
+      }
+    }
+    
+    .progress-group.current{
+        border: 1px solid black;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+      
+        .progress-icon{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .text{
+          color:black ;
         }
       }
     }
@@ -495,4 +472,3 @@ section.button-group {
       }
     }
   }
-}

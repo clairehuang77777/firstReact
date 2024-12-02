@@ -82,7 +82,7 @@ function Home({currentStep, nextStep, prevStep, carts, setCarts}){
         <>
           <Headers />
           <StepProgress currentStep={currentStep}/>
-          <SectionPayment/>
+          <SectionPayment prevStep={prevStep}/>
         </>
       )}
       </CartContext.Provider>
