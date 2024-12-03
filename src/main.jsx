@@ -45,8 +45,8 @@ function App(){
 <>
   <BrowserRouter>
   <Routes>
-      <Route path="/" 
-      element={<Home currentStep={currentStep} nextStep={nextStep} prevStep={prevStep} carts={carts} setCarts={setCarts} />} />
+      <Route path="/" element={
+      <Home currentStep={currentStep} nextStep={nextStep} prevStep={prevStep} carts={carts} setCarts={setCarts} />} />
       <Route path="/form_data_page" element={<Thankyoupage/>} />
     </Routes>
   </BrowserRouter>

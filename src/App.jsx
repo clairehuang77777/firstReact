@@ -360,6 +360,7 @@ export function SectionPayment({prevStep}){
     if (e) e.preventDefault();
     console.log("handleSubmit triggered!")
     const form = document.createElement("form");
+    console.log(formData);
     navigate("/form_data_page")
     ;
 

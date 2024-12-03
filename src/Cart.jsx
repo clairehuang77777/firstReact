@@ -4,10 +4,14 @@ import { CartContext } from './CartContext.js'
 
 
 export function Item({cart, onPriceChange}){
-const [count, SetCount] = useState(cart.quantity)
+const { carts, setCarts } = useContext(CartContext)
 
 function handleCountChange(newCount){
-  SetCount(newCount)
+  setCarts(carts.map((item) => 
+    item.id === item.id ? 
+    {...item, 
+      quantity: newCount, 
+      price: item.price * newCount } : item) )
   onPriceChange(cart.id, cart.price* newCount)
 }
 
@@ -19,12 +23,13 @@ return(
             <div className="product-name">{cart.name}</div>
               <div className="product-control-container">
                 <div className="product-control">
-                  <img src="/icons/minus.svg" alt="Minus icon" className="product-action minus" onClick={()=>count > 0 && handleCountChange(count -1)}/>
-                  <span className="product-count">{count}</span>
-                  <img src="/icons/plus.svg" alt="Plus icon" className="product-action plus" onClick={()=> handleCountChange(count +1)}/>
+                  <img src="/icons/minus.svg" alt="Minus icon" className="product-action minus" 
+                  onClick={() => cart.quantity > 0 && handleCountChange(cart.quantity - 1)}/>
+                  <span className="product-count">{cart.quantity}</span>
+                  <img src="/icons/plus.svg" alt="Plus icon" className="product-action plus" onClick={()=> handleCountChange(cart.quantity+1)}/>
                   </div>
                 </div>
-                <div className="product-price">${cart.price * count}</div>
+                <div className="product-price">${cart.price * cart.quantity}</div>
                 </div>
               </div>
     </>
@@ -33,6 +38,7 @@ return(
 
 export function Cart(){
   const { carts, setCarts } = useContext(CartContext)
+  const [ totalPrice, setTotalPrice] = useState(carts.reduce((sum, cart)=> sum + cart.price , 0))
 
     // 防禦性檢查
   if (!Array.isArray(carts)) {
@@ -40,17 +46,17 @@ export function Cart(){
     return null; // 或顯示錯誤訊息的 UI
   }
 
-  const [itemPrice, SetItemPrice] = useState(
-    carts.map(cart=> ({id: cart.id, totalPrice: cart.price * cart.quantity }))
-  )
-
   function handlePriceChange(id, newTotalPrice){
-      SetItemPrice(prevPrices =>
-        prevPrices.map( item => item.id === id ? 
-        {...item, totalPrice : newTotalPrice} : item))
+    
+    const updatedCarts = carts.map((item) => item.id === id ? {...item, price: newTotalPrice} : item)
+    console.log(updatedCarts)
+    
+    const updatedPrices = updatedCarts.reduce((sum, cart)=> sum + cart.price , 0)
+    
+    setCarts(updatedCarts)
+    setTotalPrice(updatedPrices)
   }
-
-  const totalPrice = itemPrice.reduce((sum, item)=> sum + item.totalPrice , 0)
+  
 
   return (
     <>
