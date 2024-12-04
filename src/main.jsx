@@ -57,11 +57,13 @@ function App(){
 
 function Home({currentStep, nextStep, prevStep, carts, setCarts}){
   return (
+    <>
+    <Headers />
+    <StepProgress currentStep={currentStep} />
+  
     <CartContext.Provider value={{carts, setCarts}}>
       {(currentStep === 1) &&(
         <>
-          <Headers />
-          <StepProgress currentStep={currentStep}/>
           <StepOne />
           <Cart/>
           <ProgressControlAddress nextStep={nextStep} />
@@ -70,8 +72,6 @@ function Home({currentStep, nextStep, prevStep, carts, setCarts}){
 
       {(currentStep === 2) && (
         <>
-          <Headers />
-          <StepProgress currentStep={currentStep}/>
           <StepTwo />
           <Cart/>
           <ProgressControlShipping nextStep={nextStep} prevStep={prevStep}/>
@@ -80,12 +80,11 @@ function Home({currentStep, nextStep, prevStep, carts, setCarts}){
       
       {(currentStep === 3) && (
         <>
-          <Headers />
-          <StepProgress currentStep={currentStep}/>
           <SectionPayment prevStep={prevStep}/>
         </>
       )}
       </CartContext.Provider>
+  </>
   )
 }
 

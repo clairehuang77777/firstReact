@@ -3,16 +3,17 @@ import { CartContext } from './CartContext.js'
 
 
 
-export function Item({cart, onPriceChange}){
+export function Item({cart}){
 const { carts, setCarts } = useContext(CartContext)
 
-function handleCountChange(newCount){
-  setCarts(carts.map((item) => 
-    item.id === item.id ? 
+function updateCartsQuantityAndPrice(newCount){
+  setCarts(
+    carts.map((item) => 
+    item.id === cart.id ? 
     {...item, 
       quantity: newCount, 
-      price: item.price * newCount } : item) )
-  onPriceChange(cart.id, cart.price* newCount)
+      price: item.price * newCount } : item
+    ))
 }
 
 return(
@@ -24,12 +25,12 @@ return(
               <div className="product-control-container">
                 <div className="product-control">
                   <img src="/icons/minus.svg" alt="Minus icon" className="product-action minus" 
-                  onClick={() => cart.quantity > 0 && handleCountChange(cart.quantity - 1)}/>
+                  onClick={() => cart.quantity > 0 && updateCartsQuantityAndPrice(cart.quantity - 1)}/>
                   <span className="product-count">{cart.quantity}</span>
-                  <img src="/icons/plus.svg" alt="Plus icon" className="product-action plus" onClick={()=> handleCountChange(cart.quantity+1)}/>
+                  <img src="/icons/plus.svg" alt="Plus icon" className="product-action plus" onClick={()=> updateCartsQuantityAndPrice(cart.quantity+1)}/>
                   </div>
                 </div>
-                <div className="product-price">${cart.price * cart.quantity}</div>
+                <div className="product-price">${cart.price}</div>
                 </div>
               </div>
     </>
@@ -38,25 +39,8 @@ return(
 
 export function Cart(){
   const { carts, setCarts } = useContext(CartContext)
-  const [ totalPrice, setTotalPrice] = useState(carts.reduce((sum, cart)=> sum + cart.price , 0))
 
-    // 防禦性檢查
-  if (!Array.isArray(carts)) {
-    console.error("carts is not an array:", carts);
-    return null; // 或顯示錯誤訊息的 UI
-  }
-
-  function handlePriceChange(id, newTotalPrice){
-    
-    const updatedCarts = carts.map((item) => item.id === id ? {...item, price: newTotalPrice} : item)
-    console.log(updatedCarts)
-    
-    const updatedPrices = updatedCarts.reduce((sum, cart)=> sum + cart.price , 0)
-    
-    setCarts(updatedCarts)
-    setTotalPrice(updatedPrices)
-  }
-  
+  const totalPrice = carts.reduce((sum, cart)=> sum + cart.price , 0)
 
   return (
     <>
@@ -66,8 +50,8 @@ export function Cart(){
         <section className="product-list col col-12" data-total-price="0">
         {carts.map((cart)=>
           (<Item key={cart.id} 
-                cart={cart} 
-                onPriceChange={handlePriceChange}></Item>
+                  cart={cart} 
+                  ></Item>
           ))}
         </section>
           <section className="cart-info shipping col col-12">
