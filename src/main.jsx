@@ -1,16 +1,19 @@
 import { useState } from 'react'
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.scss'
-import { StepProgress, StepOne, StepTwo, StepThree, ProgressControlAddress, ProgressControlCreditCard, ProgressControlShipping, Headers, NavbarMenu, SectionPayment, Thankyoupage } from './App.jsx'
-import { Cart, Item } from './Cart.jsx'
 import './cart.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {CartContext} from './CartContext.js'
-import { render } from "react-dom";
+import './App.scss'
+import './base.scss'
+import './form.scss'
+import './header.scss'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
+import {App} from './App'
+import { Thankyoupage } from './components';
+import { CartContext } from './CartContext';
 
-function App(){
+export function Main(){
   const [currentStep, setCurrentStep] = useState(1) //追蹤目前步驟
   const [carts, setCarts] = useState([
   {
@@ -42,50 +45,23 @@ function App(){
   }
 
   return(
-<>
-  <BrowserRouter>
-  <Routes>
-      <Route path="/" element={
-      <Home currentStep={currentStep} nextStep={nextStep} prevStep={prevStep} carts={carts} setCarts={setCarts} />} />
-      <Route path="/form_data_page" element={<Thankyoupage/>} />
-    </Routes>
-  </BrowserRouter>
-</>
+  <>
+    <BrowserRouter>
+    <CartContext.Provider value={{carts, setCarts}}>
+    <Routes>
+        <Route path="/" element={
+          <App currentStep={currentStep} 
+          nextStep={nextStep} 
+          prevStep={prevStep} 
+          carts={carts} 
+          setCarts={setCarts} />} />
+        <Route path="/form_data_page" element={<Thankyoupage/>} />
+      </Routes>
+    </CartContext.Provider>
+    </BrowserRouter>
+  </>
 )
 }
 
 
-function Home({currentStep, nextStep, prevStep, carts, setCarts}){
-  return (
-    <>
-    <Headers />
-    <StepProgress currentStep={currentStep} />
-  
-    <CartContext.Provider value={{carts, setCarts}}>
-      {(currentStep === 1) &&(
-        <>
-          <StepOne />
-          <Cart/>
-          <ProgressControlAddress nextStep={nextStep} />
-        </>
-        )}
-
-      {(currentStep === 2) && (
-        <>
-          <StepTwo />
-          <Cart/>
-          <ProgressControlShipping nextStep={nextStep} prevStep={prevStep}/>
-        </>
-      )}
-      
-      {(currentStep === 3) && (
-        <>
-          <SectionPayment prevStep={prevStep}/>
-        </>
-      )}
-      </CartContext.Provider>
-  </>
-  )
-}
-
-createRoot(document.getElementById('root')).render(<App />)
+createRoot(document.getElementById('root')).render(<Main />)

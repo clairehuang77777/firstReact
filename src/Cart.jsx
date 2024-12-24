@@ -1,5 +1,7 @@
 import { useContext, useState } from "react"
 import { CartContext } from './CartContext.js'
+import minusIcon from './assets/minus.svg'
+import plusIcon from './assets/plus.svg'
 
 
 
@@ -24,10 +26,10 @@ return(
             <div className="product-name">{cart.name}</div>
               <div className="product-control-container">
                 <div className="product-control">
-                  <img src="/icons/minus.svg" alt="Minus icon" className="product-action minus" 
+                  <img src={minusIcon} alt="Minus icon" className="product-action minus" 
                   onClick={() => cart.quantity > 0 && updateCartsQuantityAndPrice(cart.quantity - 1)}/>
                   <span className="product-count">{cart.quantity}</span>
-                  <img src="/icons/plus.svg" alt="Plus icon" className="product-action plus" onClick={()=> updateCartsQuantityAndPrice(cart.quantity+1)}/>
+                  <img src={plusIcon} alt="Plus icon" className="product-action plus" onClick={()=> updateCartsQuantityAndPrice(cart.quantity+1)}/>
                   </div>
                 </div>
                 <div className="product-price">${cart.price}</div>
