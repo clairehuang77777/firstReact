@@ -9,6 +9,11 @@
     }
   }
 }
+@media screen and (min-width: 749.5px) {
+  form{
+    width:780px
+  }
+}
 
 main.site-main {
   margin-top: 80px;
@@ -26,9 +31,9 @@ main.site-main {
   }
 }
 
-@media screen and (min-width: 768px) {
-  @include input-width('input-w-lg', 6);
-}
+// @media screen and (min-width: 768px) {
+//   @include input-width('input-w-lg', 6);
+// }
 
 @media screen and (max-width: 768px) {
   $mobile-form-full-width: 346;

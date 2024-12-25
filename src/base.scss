@@ -15,6 +15,20 @@ $screen-break-point: 749.5px;
   --main-font-family: 'Noto Sans TC', sans-serif;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root{
+  place-items: center;/* 水平和垂直置中 */
+  height: 100vh;/* 父元素佔滿視窗高度 */
+}
+
 body {
   --background-color: #FFFFFF;
   --footer-background-color: #F6F7F8;
@@ -44,7 +58,7 @@ body {
   background-color: var(--background-color);
   color: var(--main-text);
   font-family: var(--main-font-family);
-  font-size: 16px;
+  font-size: 1.2rem;
   user-select: none;
 }
 
@@ -57,7 +71,15 @@ li {
 }
 
 .container {
-  margin: 0px 15px;
+  margin: 0px;
+  padding: 100px;
+}
+
+.container>* {
+  max-width: 100%;
+  /* 防止內容超出 */
+  overflow: hidden;
+  /* 隱藏溢出內容 */
 }
 
 .mx-auto {
@@ -72,6 +94,102 @@ li {
 .cursor-point {
   cursor: pointer;
 }
+
+.col.col-1 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 8.3333333333%;
+  align-content: flex-start;
+  max-width: 8.3333333333%;
+}
+
+.col.col-2 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 16.6666666667%;
+  align-content: flex-start;
+  max-width: 16.6666666667%;
+}
+
+.col.col-3 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 25%;
+  align-content: flex-start;
+  max-width: 25%;
+}
+
+.col.col-4 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 33.3333333333%;
+  align-content: flex-start;
+  max-width: 33.3333333333%;
+}
+
+.col.col-5 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 41.6666666667%;
+  align-content: flex-start;
+  max-width: 41.6666666667%;
+}
+
+.col.col-6 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 50%;
+  align-content: flex-start;
+  max-width: 50%;
+}
+
+.col.col-7 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 58.3333333333%;
+  align-content: flex-start;
+  max-width: 58.3333333333%;
+}
+
+.col.col-8 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 66.6666666667%;
+  align-content: flex-start;
+  max-width: 66.6666666667%;
+}
+.col.col-9 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 75%;
+  align-content: flex-start;
+  max-width: 75%;
+}
+
+.col.col-10 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 83.3333333333%;
+  align-content: flex-start;
+  max-width: 83.3333333333%;
+}
+
+.col.col-11 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 91.6666666667%;
+  align-content: flex-start;
+  max-width: 91.6666666667%;
+}
+
+.col.col-12 {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 100%;
+  align-content: flex-start;
+  max-width: 98%;
+}
+
 
 @mixin col-series($serial) {
   display: flex;
@@ -109,3 +227,4 @@ li {
     }
   }
 }
+

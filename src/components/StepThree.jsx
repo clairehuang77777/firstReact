@@ -16,11 +16,12 @@ export function StepThree(){
 
   return (
     <>
-    <form className="col col-12" data-phase="credit-card" action="/form_data_page">
+    <section className="form-container col col-11">
+    <form className="col col-11" data-phase="credit-card" action="/form_data_page">
               <h3 className="form-title">付款資訊</h3>
               <section className="form-body col col-12">
                 <div className="col col-12">
-                  <div className="input-group input-w-lg-4 input-w-sm-full">
+                  <div className="input-group input-w-lg-5 input-w-sm-full">
                     <label className="input-label" htmlFor="cardHolderName">持卡人姓名</label>
                     <input 
                       id="cardHolderName"
@@ -32,7 +33,7 @@ export function StepThree(){
                   </div>
                 </div>
                 <div className="col col-12">
-                  <div className="input-group input-w-lg-4 input-w-sm-full">
+                  <div className="input-group input-w-lg-5 input-w-sm-full">
                     <label className="input-label" htmlFor="cardNumber">卡號</label>
                     <input 
                       id="cardNumber"
@@ -44,7 +45,7 @@ export function StepThree(){
                   </div>
                 </div>
                 <div className="col col-12">
-                  <div className="input-group input-w-lg-3 input-w-sm-s3">
+                  <div className="input-group input-w-lg-2 input-w-sm-s2" id="limitedcss">
                     <label className="input-label" htmlFor="expiredDate">有效期限</label>
                     <input 
                       id="expiredDate"
@@ -54,8 +55,8 @@ export function StepThree(){
                       onChange={handleChange}
                       />
                   </div>
-                  <div className="input-group input-w-lg-3 input-w-sm-s3">
-                    <label className="input-label" htmlFor="CVC">CVC / CCV</label>
+                  <div className="input-group input-w-lg-2 input-w-sm-s2" id="cvc">
+                    <label className="input-label" htmlFor="CVC" >CVC / CCV</label>
                     <input 
                       id="CVC"
                       type="text" 
@@ -67,6 +68,7 @@ export function StepThree(){
                 </div>
               </section>
             </form>
+          </section>
     </>
   )
 }

@@ -41,7 +41,8 @@ header.site-header {
 
 // navbar-toggle
 input#navbar-toggle {
-  display: none;
+  opacity: 0;
+  position: absolute;
 }
 
 label.burger-container {
@@ -90,9 +91,16 @@ label.burger-container {
   .nav-item {
     font-size: 1rem;
     padding: 20px;
+    text-decoration: none;
+    color:black;
   }
 
-  .navbar-toggle:checked ~ .navbar-menu {
-    display: block;
+  .nav-link{
+    text-decoration: none;
+      color: black;
   }
+
+  input#navbar-toggle:checked+label+.navbar-menu {
+      display: block;
+    }
 }

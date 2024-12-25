@@ -4,8 +4,7 @@ import leftArrow from "../assets/left-arrow.svg"
 export function ProgressControlCreditCard({prevStep, handleSubmit}){
   return(
     <>
-    <hr></hr>
-     <section className="button-group col col-12" data-phase="credit-card">
+     <section className="button-group col col-12 progress-control-container" data-phase="credit-card">
         <button className="prev" onClick={prevStep}>
         <object data={leftArrow} className="cursor-point">
         </object>

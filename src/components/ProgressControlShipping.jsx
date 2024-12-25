@@ -4,7 +4,7 @@ import rightArrow from "../assets/right-arrow.svg"
 export function ProgressControlShipping({nextStep, prevStep}){
   return (
     <>
-          <section className="button-group col col-12" data-phase="shipping">
+      <section className="button-group col col-12 progress-control-container" data-phase="shipping">
             <button className="prev" onClick={prevStep}>
               <object data={leftArrow} className="cursor-point">
               </object>

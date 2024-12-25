@@ -57,16 +57,117 @@
   @extend %done-phase;
 }
 
-section.register-container {
-  h2.register-title {
+
+.site-header{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 45px;
+}
+
+.click-logo-area{
+  display: none;
+}
+
+.logoIcon{
+  margin-top:10px;
+}
+
+.burger-container{
+  margin-top: 5px;
+  margin-left: 20px;
+}
+
+#name{
+  padding-left: 15px;
+}
+#cvc {
+  margin-left: 27px;
+  width: 105px;
+}
+
+#expiredDate{
+  width:105px;
+}
+
+
+  @media screen and (min-width: 749.5px) {
+  .site-header {
+    height: 100px;
+  }
+
+  .nav-list{
+    display: flex;
+    flex-direction: row;
+    padding-top: 25px;
+    justify-content: center;
+    margin-left: 100px;
+  }
+
+  .nav-item{
+    margin-left: 30px;
+    text-decoration: none;
+    justify-content: center;
+  }
+  .nav-link{
+    text-decoration: none;
+    color: black;
+  }
+
+  #logoIcon{
+    margin-top: 10px;
+  }
+
+  #cvc{
+    margin-left: 50px;
+  }
+
+  #email {
+    margin-left: 75px;
+  }
+
+  #name {
+    margin-left: 10px;
+  }
+  
+  #address {
+    margin-left: 10px;
+  }
+  .click-logo-area{
+    display: flex;
+    flex-direction: row;
+    padding-top: 25px;
+    justify-content: center;
+    margin-left: 850px;
+    }    
+    
+    .SearchIcon, .ShippingIcon, .MoonIcon{
+      margin-left: 20px;
+    }
+  
+
+
+  }
+
+
+
+h2.register-title {
+    grid-area: header-title;
     font-weight: 700;
     font-size: 32px;
     line-height: 38px;
     color: var(--main-text);
-  }
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-left: 10px;
 }
 
+
 section.progress-container {
+  grid-area: progress-bar;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,10 +177,11 @@ section.progress-container {
     display: flex;
     flex-grow: 1;
     max-width: 60px;
-    height: 1px;
+    height: 2px;
     margin: 0px 8px;
     border-width: 2px;
     border-style: solid;
+    background-color: black;
   }
 
   
@@ -187,6 +289,7 @@ $phase-map: (
 section.form-container {
   display: flex;
   margin-top: 64px;
+  grid-area: form;
 
   h3.form-title {
     display: flex;
@@ -194,12 +297,25 @@ section.form-container {
     font-weight: 700;
     font-size: 24px;
     line-height: 24px;
+    padding-left: 10px;
+  }
+}
+
+section.cart-container{
+  grid-area: shipping-cart;
+}
+
+@media screen and (min-width: 749.5px){
+  section.cart-container {
+    margin-left: 150px;
   }
 }
 
 section.form-body {
+  padding-left: 10px;
   .col {
-    justify-content: space-between;
+    justify-content: flex-start;
+    
   }
 
   .input-group {
@@ -219,7 +335,7 @@ section.form-body {
       &::after {
         position: absolute;
         top: 50%;
-        right: 12px;
+        right: 35px;
         transform: translateY(-50%);
         z-index: -2;
         pointer-events: none;
@@ -230,9 +346,19 @@ section.form-body {
       }
     }
 
-    input,
+    input{
+      width: 95%;
+      padding: 12px 16px;
+        font-weight: 400;
+        font-size: 12px;
+        font-family: 'Noto Sans TC', sans-serif;
+        line-height: 16px;
+        border: 1px solid var(--input-border);
+        border-radius: 4px;
+        background-color: transparent;
+    }
     select {
-      width: 100%;
+      width: 95%;
       padding: 12px 16px;
       font-weight: 400;
       font-size: 12px;
@@ -349,6 +475,7 @@ section.form-body {
 }
 
 section.progress-control-container {
+  grid-area: next-step;
   position: absolute;
   left: 0px;
   right: 0px;
@@ -404,19 +531,30 @@ section.button-group {
 @media screen and (max-width: 768px) {
   section.progress-container {
     margin-top: 24px;
+    width: 360px;
 
+    .progress-wrapper{
+      
+    }
     .progress-group {
       .progress-icon.done {
-        width: 32px;
-        height: 32px;
-        margin-right: 0px;
-        background-color: #000000;
-        color: white;
-        border-radius: 50%;
+        display: flex;
+          flex-direction: row;
+          justify-content: center;
+          padding-top: 15px;
+
+       
 
         .checkmark {
+          width: 32px;
+            height: 32px;
+            margin-right: 0px;
+            background-color: #000000;
+            color: white;
+            border-radius: 50%;
           font-family: Arial, sans-serif;
           color: white !important;
+          background-color: #000000;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -446,11 +584,69 @@ section.button-group {
       }
     }
 
-    .progress-label {
+  .progress-label {
+    visibility: hidden;
+  }
+
+  .progress-group.undone{
+    .progress-label{
       display: none;
     }
   }
+}
 
+  @media screen and (min-width: 768px) {
+    .progress-group {
+      display: flex;
+
+      .progress-icon {
+        background-color: black;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .progress-icon.done {
+        background-color: black;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .checkmark{
+        width: 25px;
+        height: 25px;
+        margin-right: 0px;
+        background-color: #000000;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .text {
+        color: white;
+        padding-left: 1px;
+      }
+    }
+
+    .progress-group.undone{
+      display: flex;
+    }
+
+    .progress-group.done{
+      display: flex;
+    }
+
+  }
   section.form-container {
     margin-top: 24px;
   }
@@ -471,4 +667,279 @@ section.button-group {
         width: 100%;
       }
     }
+  }
+
+
+
+@media screen and (min-width: 749.5px) {
+      .col.col-lg-1 {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 8.3333333333%;
+        align-content: flex-start;
+        max-width: 8.3333333333%;
+      }
+  
+      .col.col-lg-2 {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 16.6666666667%;
+        align-content: flex-start;
+        max-width: 16.6666666667%;
+      }
+  
+      .col.col-lg-3 {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 25%;
+        align-content: flex-start;
+        max-width: 25%;
+      }
+  
+      .col.col-lg-4 {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 33.3333333333%;
+        align-content: flex-start;
+        max-width: 33.3333333333%;
+      }
+  
+      .col.col-lg-5 {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 41.6666666667%;
+        align-content: flex-start;
+        max-width: 41.6666666667%;
+      }
+  
+      .col.col-lg-6 {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 50%;
+        align-content: flex-start;
+        max-width: 50%;
+      }
+  
+      .col.col-lg-7 {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 58.3333333333%;
+        align-content: flex-start;
+        max-width: 58.3333333333%;
+      }
+      
+      .col.col-lg-8 {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 66.6666666667%;
+        align-content: flex-start;
+        max-width: 66.6666666667%;
+      }
+      
+      .col.col-lg-9 {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 75%;
+        align-content: flex-start;
+        max-width: 75%;
+      }
+      
+      .col.col-lg-10 {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 83.3333333333%;
+        align-content: flex-start;
+        max-width: 83.3333333333%;
+      }
+      
+      .col.col-lg-11 {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 91.6666666667%;
+        align-content: flex-start;
+        max-width: 91.6666666667%;}
+        
+        .col.col-lg-12 {
+          display: flex;
+          flex-wrap: wrap;
+          flex: 0 0 100%;
+          align-content: flex-start;
+          max-width: 100%;
+        }
+  }
+
+
+@media screen and (max-width: 749.5px) {
+  .col.col-sm-1 {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 0 8.3333333333%;
+    align-content: flex-start;
+    max-width: 8.3333333333%;
+  }
+
+  .col.col-sm-2 {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 0 16.6666666667%;
+    align-content: flex-start;
+    max-width: 16.6666666667%;
+  }
+
+  .col.col-sm-3 {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 0 25%;
+    align-content: flex-start;
+    max-width: 25%;
+  }
+
+  .col.col-sm-4 {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 0 33.3333333333%;
+    align-content: flex-start;
+    max-width: 33.3333333333%;
+  }
+
+  .col.col-sm-5 {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0 0 41.6666666667%;
+    align-content: flex-start;
+    max-width: 41.6666666667%;
+  } 
+  .col.col-sm-6 {
+     display: flex;
+     flex-wrap: wrap;
+     flex: 0 0 50%;
+     align-content: flex-start;
+     max-width: 50%;
+   }
+  
+   .col.col-sm-7 {
+     display: flex;
+     flex-wrap: wrap;
+     flex: 0 0 58.3333333333%;
+     align-content: flex-start;
+     max-width: 58.3333333333%;
+   }
+  
+   .col.col-sm-8 {
+     display: flex;
+     flex-wrap: wrap;
+     flex: 0 0 66.6666666667%;
+     align-content: flex-start;
+     max-width: 66.6666666667%;
+   }
+  
+   .col.col-sm-9 {
+     display: flex;
+     flex-wrap: wrap;
+     flex: 0 0 75%;
+     align-content: flex-start;
+     max-width: 75%;
+   }
+  
+   .col.col-sm-10 {
+     display: flex;
+     flex-wrap: wrap;
+     flex: 0 0 83.3333333333%;
+     align-content: flex-start;
+     max-width: 83.3333333333%;
+   }  
+   
+   .col.col-sm-11 {
+      display: flex;
+      flex-wrap: wrap;
+      flex: 0 0 91.6666666667%;
+      align-content: flex-start;
+      max-width: 91.6666666667%;
+    }
+  
+    .col.col-sm-12 {
+      display: flex;
+      flex-wrap: wrap;
+      flex: 0 0 100%;
+      align-content: flex-start;
+      max-width: 100%;
+    }
+  }
+
+
+@media screen and (min-width: 749.5px) {
+  .input-w-lg-1 {
+    width: 12.037037037%;
+  }
+
+  .input-w-lg-2 {
+    width: 29.6296296296%;
+  }
+
+  .input-w-lg-3 {
+    width: 40.8%;
+  }
+
+  .input-w-lg-4 {
+    width: 60.8148148148%;
+  }
+
+  .input-w-lg-5 {
+    width: 82.4074074074%;
+  }
+
+  .input-w-lg-6 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 749.5px) {
+  .input-w-sm-s1 {
+    width: 45.6647398844%;
+  }
+
+  .input-w-sm-s2 {
+    width: 40.6647398844%;
+  }
+
+  .input-w-sm-s3 {
+    width: 45.6647398844%;
+  }
+
+  .input-w-sm-s4 {
+    width: 90%;
+  }
+
+  .input-w-sm-full {
+    width: 100%;
+  }
+
+  main.site-main {
+    margin-top: 16px;
+  }
+}
+
+@media screen and (min-width: 749.5px) {
+  .container{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    grid-gap: 25px;
+    grid-template:
+      "header-title header-title header-title header-title header-title header-title header-title header-title header-title header-title header-title header-title"
+      "progress-bar progress-bar progress-bar progress-bar progress-bar progress-bar progress-bar progress-bar shipping-cart shipping-cart shipping-cart shipping-cart"
+      "form form form form form form form form shipping-cart shipping-cart shipping-cart shipping-cart"
+      "form form form form form form form form shipping-cart shipping-cart shipping-cart shipping-cart"        
+      "form form form form form form form form shipping-cart shipping-cart shipping-cart shipping-cart"
+      "next-step next-step next-step next-step next-step next-step next-step next-step shipping-cart shipping-cart shipping-cart shipping-cart"
+    }
+
+  .section.cart-container {
+    margin-left:30px;
+    }
+
+  #limitedcss{
+        display: flex;
+          flex-direction: column;
+  }
   }

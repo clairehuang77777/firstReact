@@ -4,8 +4,7 @@ export function ProgressControlAddress({nextStep}){
 
   return (
     <>
-        <hr></hr>
-        <section className="progress-control-container col col-lg-6 col-sm-12">
+        <section className="progress-control-container col col-lg-12 col-sm-12">
           <section className="button-group col col-12" data-phase="address">
             <button className="next" onClick={nextStep}>
               下一步

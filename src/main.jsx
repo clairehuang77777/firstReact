@@ -2,12 +2,11 @@ import { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.scss'
 import './cart.scss'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss'
 import './base.scss'
 import './form.scss'
 import './header.scss'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import {App} from './App'
 import { Thankyoupage } from './components';

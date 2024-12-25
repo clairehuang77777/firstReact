@@ -9,7 +9,7 @@ export function StepProgress({ currentStep }) {
 
   return (
     <>
-      <h2 className="register-title col col-6">結帳</h2>
+      <h2 className="register-title">結帳</h2>
       <section className="progress-container">
         {steps.map((step, index) => (
           <React.Fragment key={step.phase}> 
@@ -26,9 +26,10 @@ export function StepProgress({ currentStep }) {
           >
             <div className={`progress-icon ${index + 1 < currentStep ? 'done' : ''}`}>
               {index + 1 < currentStep ? (
-                <span className="checkmark">&#10003;</span> // 已完成顯示打勾
+                <div className="checkmark">&#10003;
+                </div> // 已完成顯示打勾
               ) : (
-                <span className="text">{index + 1}</span> // 未完成或當前步驟顯示數字
+                <div className="text">{index + 1}</div> // 未完成或當前步驟顯示數字
               )}
             </div>
             <span className="progress-label">{step.label}</span>
